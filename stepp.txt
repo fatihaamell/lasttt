@@ -1,0 +1,41 @@
+step ukk
+- idupin xampp
+- buat folder (bisa di c/d)
+- klik search bar lalu ketik cmd 
+- di cmd ketik "composer create-project itsazni/ukk"
+- lalu cd ukk
+- lalu code .
+- otomatis ke vscode
+- buat database 
+- balik ke vscode buka file .env lalu ganti laravel ke nama database
+- lalu php artisan migrate:fresh --seed 
+- balik ke folder lalu buka ukk, klik dan buat cmd baru ketik php artisan serve
+- balik ke cmd pertama
+- lalu ketik npm install
+- ketik npm run dev
+- klik link nya di cmd kedua (php artisan serve)
+- balik ke vscode "app/http/controlles/admin/studentController.php"
+- ketik code dibawah store
+- public function store(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'nis' => ['required', 'string', 'unique:students,nis'],
+            'name' => ['required', 'string', 'max:255'],
+            'class' => ['required', 'string', 'max:255'],
+        ]);
+
+        Student::create($validated);
+
+        return redirect()->route('admin.students.index')->with('message', 'Siswa berhasil ditambahkan.');
+    }
+
+- setelah itu buka routes/Web.php
+- tulis dibawah admin.aspiration.update ditengah tanda ]); lalu di enter
+-  Route::resource('admin/categories', AdminCategoryController::class)->only(['index', 'store', 'update', 'destroy'])->names([
+        'index' => 'admin.categories.index',
+        'store' => 'admin.categories.store',
+        'update' => 'admin.categories.update',
+        'destroy' => 'admin.categories.destroy',
+    ]);
+- buka tweakcn, pilih tema lalu klik kode di kanan atas, salin dari root sampai akhir
+- kembali ke vscode lalu klik "resources/css/app.css" lalu tempel kode tadi
